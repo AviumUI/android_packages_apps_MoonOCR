@@ -1,0 +1,168 @@
+android_app {
+    name: "Rmoonocr",
+
+    srcs: ["src/**/*.java", "src/**/*.kt"],
+    resource_dirs: ["src/main/res"],
+    manifest: "src/main/AndroidManifest.xml",
+
+    platform_apis: true,
+    system_ext_specific: true,
+    certificate: "platform",
+    privileged: true,
+    required: ["privapp_whitelist_org.exthm.rmoonorc"],
+    
+    static_libs: [
+        "kotlin-stdlib",
+        "androidx.preference_preference",
+        "SettingsLib",
+        "androidx.compose.runtime_runtime",
+        "androidx.compose.foundation_foundation",
+        "androidx.compose.material_material",
+        "androidx.compose.ui_ui",
+        "androidx.compose.material3_material3",
+        "androidx.activity_activity-compose",
+        "androidx.lifecycle_lifecycle-service",
+        "androidx.lifecycle_lifecycle-process",
+        "mlkit-text-recognition-chinese",
+        "mlkit-vision-common",
+        "mlkit-common",
+        "mlkit-text-recognition",
+        "mlkit-text-recognition-chinese-gms",
+        "mlkit-text-recognition-common",
+        "play-services-tasks",
+        "play-services-base",
+        "vision-interfaces",
+        "play-services-basement",
+        "firebase",
+        "datatransport",
+        "inject",
+    ],
+    
+    use_embedded_native_libs: true,
+    jni_libs: [
+        "libmlkit_google_ocr_pipeline",
+    ],
+
+    optimize: {
+        optimize: true,
+        proguard_flags_files: ["proguard-rules.pro"],
+        shrink_resources: true,
+    },
+}
+
+android_library_import {
+    name: "mlkit-vision-common",
+    aars: ["libs/vision-common.aar"],
+    sdk_version: "current",
+}
+
+android_library_import {
+    name: "mlkit-common",
+    aars: ["libs/common.aar"],
+    sdk_version: "current",
+}
+
+android_library_import {
+    name: "mlkit-text-recognition",
+    aars: ["libs/text-recognition.aar"],
+    sdk_version: "current",
+    static_libs: [
+        "mlkit-vision-common",
+        "mlkit-common",
+    ],
+}
+
+android_library_import {
+    name: "mlkit-text-recognition-chinese",
+    aars: ["libs/text-recognition-chinese.aar"],
+    sdk_version: "current",
+    static_libs: ["mlkit-text-recognition"],
+}
+
+android_library_import {
+    name: "mlkit-text-recognition-chinese-gms",
+    aars: ["libs/mlkit-text-recognition-chinese.aar"],
+    sdk_version: "current",
+}
+
+android_library_import {
+    name: "mlkit-text-recognition-common",
+    aars: ["libs/mlkit-text-recognition-common.aar"],
+    sdk_version: "current",
+}
+
+android_library_import {
+    name: "play-services-tasks",
+    aars: ["libs/play-services-tasks.aar"],
+    sdk_version: "current",
+}
+
+android_library_import {
+    name: "play-services-base",
+    aars: ["libs/play-services-base.aar"],
+    sdk_version: "current",
+}
+
+android_library_import {
+    name: "vision-interfaces",
+    aars: ["libs/vision-interfaces.aar"],
+    sdk_version: "current",
+}
+
+android_library_import {
+    name: "play-services-basement",
+    aars: ["libs/play-services-basement.aar"],
+    sdk_version: "current",
+}
+
+java_import {
+    name: "datatransport",
+    jars: ["libs/datatransport.jar"],
+    installable: true,
+}
+
+java_import {
+    name: "firebase",
+    jars: ["libs/firebase.jar"],
+    installable: true,
+}
+
+java_import {
+    name: "inject",
+    jars: ["libs/inject.jar"],
+    installable: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libmlkit_google_ocr_pipeline",
+    relative_install_path: "Rmoonocr",
+    arch: {
+        arm64: {
+            srcs: ["libs/arm64-v8a/libmlkit_google_ocr_pipeline.so"],
+        },
+        arm: {
+            srcs: ["libs/armeabi-v7a/libmlkit_google_ocr_pipeline.so"],
+        },
+    },
+    strip: {
+        none: true, 
+    },
+    compile_multilib: "both", 
+    shared_libs: [
+    "liblog",
+    "libjnigraphics",
+    "libandroid",
+    "libz",
+    "libEGL",
+    "libGLESv2",
+],
+}
+
+
+prebuilt_etc {
+    name: "privapp_whitelist_org.exthm.rmoonorc",
+    system_ext_specific: true,
+    sub_dir: "permissions",
+    src: "privapp_whitelist_org.exthm.rmoonorc.xml",
+    filename_from_src: true,
+}

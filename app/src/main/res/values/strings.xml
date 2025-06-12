@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">moon_ocr</string>
+    <string name="ocr_result_title">识别结果</string>
+    <string name="ocr_result_placeholder">未识别到文字或内容为空。</string>
+    <string name="action_close">关闭</string>
+    <string name="action_copy">复制</string>
+    <string name="action_share">分享</string>
+    <string name="clipboard_label_ocr_result">OCR Result</string>
+    <string name="toast_copied_selection">已复制选中内容</string>
+    <string name="toast_copied_all">已复制全部内容</string>
+</resources>
