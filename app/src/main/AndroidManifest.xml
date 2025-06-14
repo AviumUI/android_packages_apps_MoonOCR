@@ -12,6 +12,12 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.READ_FRAME_BUFFER"
         tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.STATUS_BAR_SERVICE" 
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.DUMP"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS"
+        tools:ignore="ProtectedPermissions" />
 
 
     <application
@@ -39,6 +45,14 @@
             android:excludeFromRecents="true"
             android:theme="@style/Theme.Rmoonorc.Transparent"
     	    android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".ScanAnimationActivity"
+            android:exported="false"
+            android:excludeFromRecents="true"
+            android:theme="@style/Theme.Rmoonorc.Transparent"
+            android:launchMode="singleInstance"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
 
         <service
             android:name=".service.OcrService"

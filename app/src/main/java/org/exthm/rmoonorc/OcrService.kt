@@ -24,6 +24,7 @@ import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.chinese.ChineseTextRecognizerOptions
 import org.exthm.rmoonorc.OcrResultActivity
 import org.exthm.rmoonorc.R
+import org.exthm.rmoonorc.ScanAnimationActivity
 import org.exthm.rmoonorc.utils.Constants
 
 class OcrService : Service() {
@@ -97,9 +98,21 @@ class OcrService : Service() {
                 bitmap.copyPixelsFromBuffer(buffer)
                 image.close()
                 stopCaptureResources()
-                recognizeTextFromBitmap(bitmap)
+                
+                showWiredChargingRippleScanAnimation()
+                
+                handler.postDelayed({
+                    recognizeTextFromBitmap(bitmap)
+                }, 500)
             }
         }, handler)
+    }
+
+    private fun showWiredChargingRippleScanAnimation() {
+        val animationIntent = Intent(this, ScanAnimationActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        }
+        startActivity(animationIntent)
     }
 
     private fun recognizeTextFromBitmap(bitmap: Bitmap) {
