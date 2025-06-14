@@ -7,6 +7,8 @@ import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
 import android.os.ServiceManager
+import android.os.VibrationEffect
+import android.os.VibratorManager
 import android.util.Log
 import java.io.IOException
 
@@ -24,6 +26,8 @@ class ScanAnimationActivity : Activity() {
         
         Log.d(TAG, "Starting system charging ripple animation for OCR scanning")
         
+        triggerLightVibration()
+        
         triggerSystemChargingRipple()
         
         handler.postDelayed({
@@ -31,6 +35,26 @@ class ScanAnimationActivity : Activity() {
             finish()
             overridePendingTransition(0, 0)
         }, ANIMATION_DURATION)
+    }
+
+    private fun triggerLightVibration() {
+        try {            
+            val vibratorManager = getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as? VibratorManager
+            val vibrator = vibratorManager?.defaultVibrator
+            
+            if (vibrator?.hasVibrator() == true) {
+                val effect = VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE)
+                vibrator.vibrate(effect)
+                Log.d(TAG, "Light vibration triggered successfully")
+            } else {
+                Log.w(TAG, "No vibrator available on this device")
+            }
+            
+        } catch (e: SecurityException) {
+            Log.e(TAG, "Permission denied for vibration", e)
+        } catch (e: Exception) {
+            Log.e(TAG, "Unexpected error when triggering vibration", e)
+        }
     }
 
     private fun triggerSystemChargingRipple() {
