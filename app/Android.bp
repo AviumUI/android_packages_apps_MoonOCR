@@ -135,29 +135,31 @@ java_import {
 
 cc_prebuilt_library_shared {
     name: "libmlkit_google_ocr_pipeline",
-    relative_install_path: "Rmoonocr",
-    arch: {
-        arm64: {
+    relative_install_path: "MoonOCR",
+    target: {
+        android_arm64: {
             srcs: ["libs/arm64-v8a/libmlkit_google_ocr_pipeline.so"],
         },
-        arm: {
+        android_arm: {
             srcs: ["libs/armeabi-v7a/libmlkit_google_ocr_pipeline.so"],
         },
+        android: {
+            srcs: ["libs/arm64-v8a/libmlkit_google_ocr_pipeline.so"],
+        }
     },
-    strip: {
-        none: true, 
-    },
-    compile_multilib: "both", 
+    compile_multilib: "both",
     shared_libs: [
-    "liblog",
-    "libjnigraphics",
-    "libandroid",
-    "libz",
-    "libEGL",
-    "libGLESv2",
-],
+        "liblog",
+        "libjnigraphics",
+        "libandroid",
+        "libz",
+        "libEGL",
+        "libGLESv2",
+    ],
+    strip: {
+        none: true,
+    },
 }
-
 
 prebuilt_etc {
     name: "privapp_whitelist_org.exthm.rmoonorc",
