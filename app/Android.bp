@@ -143,7 +143,7 @@ cc_prebuilt_library_shared {
         android_arm: {
             srcs: ["libs/armeabi-v7a/libmlkit_google_ocr_pipeline.so"],
         },
-        android: {
+        android_x86_64: {
             srcs: ["libs/arm64-v8a/libmlkit_google_ocr_pipeline.so"],
         }
     },
